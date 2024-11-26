@@ -11,7 +11,7 @@ from ball import Ball
 from boy import Boy
 
 # fill here
-from background import InfiniteBackground as Background
+from background import FixedBackground as Background
 
 
 

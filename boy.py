@@ -216,7 +216,7 @@ class Boy:
         self.y += math.sin(self.dir) * self.speed * game_framework.frame_time
 
 #boy의 위치를 제한
-        self.x = clamp(50.0+ (self.y / 8), self.x, server.background.w - 50.0 - (self.y / 9))
+        self.x = clamp(50.0, self.x, server.background.w - 50.0)
         self.y = clamp(50.0, self.y, server.background.h - 50.0)
 
     def handle_event(self, event):

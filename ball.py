@@ -20,7 +20,6 @@ class Ball:
         sy = self.y - server.background.window_bottom
 
         self.image.draw(sx, sy)
-        draw_rectangle(*self.get_bb())
 
     def update(self):
         pass
