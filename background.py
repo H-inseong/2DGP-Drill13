@@ -9,17 +9,20 @@ class FixedBackground:
     def __init__(self):
         self.image = load_image('futsal_court.png')
         self.w, self.h = self.image.w, self.image.h
-        # fill here
-        pass
+        self.cw = get_canvas_width()
+        self.ch = get_canvas_height()
 
     def draw(self):
         # modify followings
-        self.image.draw(get_canvas_width()//2, get_canvas_height()//2)
+        #원래의 피봇은 중심이지만
+        #왼쪽 아래 원점을 피봇으로 간주하는 그리기 함수
+        self.image.clip_draw_to_origin(self.window_left, self.window_bottom, self.cw, self.ch, 0,0)
         pass
 
     def update(self):
-        # fill here
-        pass
+        #왼쪼 아래 피봇점의 위치를 제한: 왼쪽 아래 피봇점이므로 0부터
+        self.window_left = clamp(0, int(server.boy.x) - self.cw // 2, self.w - self.cw - 1 )
+        self.window_bottom= clamp(0, int(server.boy.y) - self.ch // 2, self.h - self.ch - 1)
 
     def handle_event(self, event):
         pass
