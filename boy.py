@@ -14,7 +14,7 @@ from state_machine import start_event, right_down, left_up, left_down, right_up,
 
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 40.0  # Km / Hour
+RUN_SPEED_KMPH = 100.0  # Km / Hour
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -216,15 +216,16 @@ class Boy:
         self.y += math.sin(self.dir) * self.speed * game_framework.frame_time
 
 #boy의 위치를 제한
-        self.x = clamp(50.0+ (self.y / 8), self.x, server.background.w - 50.0 - (self.y / 9))
-        self.y = clamp(50.0, self.y, server.background.h - 50.0)
+    #무한 스크롤링은 제한하지않음
+        #self.x = clamp(50.0+ (self.y / 8), self.x, server.background.w - 50.0 - (self.y / 9))
+        #self.y = clamp(50.0, self.y, server.background.h - 50.0)
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 
     def draw(self):
-        sx = self.x - server.background.window_left
-        sy = self.y - server.background.window_bottom
+        sx, sy= get_canvas_width() // 2, get_canvas_height() // 2
+
         self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, sx, sy)
         self.font.draw(sx - 100, sy + 60, f'({self.x:5.5}, {self.y:5.5})', (255, 255, 0))
 
